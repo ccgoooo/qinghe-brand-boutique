@@ -1,23 +1,31 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Layout, Placeholder, meta } from "@/components/site";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => meta("Qinghe Atelier — Quiet, handmade goods", "A fictional small atelier making calm, handmade objects for everyday life."),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <Layout>
+      <section className="grid gap-10 md:grid-cols-2 items-center">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary">Small batch · Handmade</p>
+          <h1 className="font-display text-5xl mt-4 leading-tight">Objects made slowly, like clear water.</h1>
+          <p className="mt-5 text-muted-foreground">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+          <Link to="/products" className="inline-block mt-8 rounded-md bg-primary px-5 py-2.5 text-sm text-primary-foreground hover:opacity-90">View products</Link>
+        </div>
+        <Placeholder label="Placeholder image" className="aspect-[4/5]" />
+      </section>
+      <section className="mt-20 grid gap-6 md:grid-cols-3">
+        {["Considered materials", "Made by hand", "Built to last"].map((t) => (
+          <div key={t} className="border-t border-border pt-4">
+            <h3 className="font-display text-xl">{t}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">Placeholder text describing this value in a sentence or two.</p>
+          </div>
+        ))}
+      </section>
+    </Layout>
   );
 }
